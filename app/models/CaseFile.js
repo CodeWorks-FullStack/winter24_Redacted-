@@ -4,14 +4,16 @@ import { generateId } from "../utils/GenerateId.js"
 
 export class CaseFile {
   constructor(data) {
+    // user id given OR generate one.
     this.id = data.id || generateId()
     this.caseNumber = this.id.slice(this.id.length - 5).toUpperCase()
     this.agency = data.agency
     this.description = data.description || ''
     this.reportedDate = data.reportedDate == undefined ? new Date() : new Date(data.reportedDate)
     // this.updatedAt = data.updatedAt || new Date() Or does not work for data that must be backed by a class
-    // NOTE              if there is not one    ? caseFile from form : caseFile from localStorage
+    // NOTE          if there is not a updatedAt ? caseFile from form : caseFile from localStorage
     this.updatedAt = data.updatedAt == undefined ? new Date() : new Date(data.updatedAt)
+    // if there isn't a updatedAt, like our new caseFiles from the form submission; create one for right now. If there is one, like our caseFiles coming from localStorage, use theirs instead.
   }
 
   get ListTemplate() {

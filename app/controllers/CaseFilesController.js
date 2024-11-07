@@ -31,14 +31,14 @@ export class CaseFilesController {
 
   createCaseFile() {
     console.log('Creating Case File');
-    event.preventDefault()
+    event.preventDefault() // prevent form from 'refreshing' page
     const formElm = event.target
     // console.log(formElm.agency.value);
     const formData = {
       // @ts-ignore
-      agency: formElm.agency.value,
+      agency: formElm.agency.value, // pull values from inputs
       // @ts-ignore
-      reportedDate: formElm.reportedDate.value
+      reportedDate: formElm.reportedDate.value // values are pulled by name attribute on the html
     }
     console.log(formData);
     caseFilesService.createCaseFile(formData)
@@ -50,13 +50,14 @@ export class CaseFilesController {
     caseFilesService.selectActiveCaseFile(caseFileId)
   }
 
+  // NOTE this doesn't need to take in an id, because you can only save one caseFile, the one already selected.
   saveActiveCaseFile() {
     event.preventDefault()
     console.log('💾📂', AppState.activeCaseFile);
     const formElm = event.target
     // @ts-ignore
-    let newText = formElm.description.value
+    let newText = formElm.description.value // extract the text from the textarea
     console.log(newText);
-    caseFilesService.saveActiveCaseFile(newText)
+    caseFilesService.saveActiveCaseFile(newText) // give that text to our service
   }
 }
